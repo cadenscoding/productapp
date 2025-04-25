@@ -4,36 +4,31 @@ import { useNavigate } from 'react-router-dom';
 
 const AddFeedbackForm = () => {
   const navigate = useNavigate();
-
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Feature');
   const [detail, setDetail] = useState('');
-  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !detail || !category) {
-      setError('Please fill out all fields.');
-      return;
-    }
+
+    const feedback = { title, category, detail };
 
     try {
-      const response = await fetch('https://productapp-9q9e.onrender.com/feedback', {
+      const res = await fetch('https://productapp-9q9e.onrender.com/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, category, detail }),
+        body: JSON.stringify(feedback),
       });
 
-      const data = await response.json();
-
+      const data = await res.json();
       if (data.success) {
-        navigate('/'); 
+        navigate('/');
       } else {
-        setError(data.message || 'Failed to submit feedback');
+        alert('Error: ' + data.message);
       }
     } catch (err) {
       console.error('Submit error:', err);
-      setError('Something went wrong.');
+      alert('Something went wrong submitting feedback.');
     }
   };
 
@@ -45,8 +40,6 @@ const AddFeedbackForm = () => {
           <div className="form-icon">+</div>
           <h2>Create New Feedback</h2>
         </div>
-
-        {error && <p className="error-msg">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <label className="form-label">Feedback Title</label>
@@ -83,8 +76,8 @@ const AddFeedbackForm = () => {
             onChange={(e) => setDetail(e.target.value)}
           />
 
-          <button type="submit" className="submit-btn">Add Feedback</button>
-          <button type="button" className="cancel-btn" onClick={() => navigate(-1)}>Cancel</button>
+          <button className="submit-btn" type="submit">Add Feedback</button>
+          <button className="cancel-btn" onClick={() => navigate(-1)}>Cancel</button>
         </form>
       </div>
     </div>
