@@ -54,10 +54,18 @@ app.get("/feedback", async (req, res) => {
 
 // Feedback POST route with logging
 app.post("/feedback", async (req, res) => {
-  console.log("Received request body:", req.body); 
-  
+
+  if (!req.body || typeof req.body !== "object") {
+    console.error("Missing or invalid body:", req.body);
+    return res.status(400).json({ success: false, message: "Request body is missing or invalid" });
+  }
+
+ 
+  console.log("Received request body:", req.body);
+
   const { title, category, detail } = req.body;
 
+ 
   if (!title || !category || !detail) {
     return res.status(400).json({ success: false, message: "All fields are required" });
   }
