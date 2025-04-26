@@ -45,7 +45,7 @@ const executeQuery = async (query, params = []) => {
 // Feedback GET route
 app.get("/feedback", async (req, res) => {
   try {
-    const rows = await executeQuery("SELECT * FROM public.feedback ORDER BY id DESC");
+    const rows = await executeQuery("SELECT * FROM feedback ORDER BY id DESC");
     res.status(200).json({ success: true, data: rows });
   } catch {
     res.status(500).json({ success: false, message: "Error fetching feedback" });
@@ -72,7 +72,7 @@ app.post("/feedback", async (req, res) => {
 
   try {
     const rows = await executeQuery(
-      "INSERT INTO public.feedback (title, category, detail) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO feedback (title, category, detail) VALUES ($1, $2, $3) RETURNING *",
       [title, category, detail]
     );
     res.status(201).json({ success: true, message: "Feedback added", data: rows[0] });
@@ -88,7 +88,7 @@ app.get("/feedback/:id", async (req, res) => {
 
   try {
     const rows = await executeQuery(
-      "SELECT * FROM public.feedback WHERE id = $1",
+      "SELECT * FROM feedback WHERE id = $1",
       [feedbackId]
     );
     

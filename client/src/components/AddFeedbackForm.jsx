@@ -14,7 +14,7 @@ const AddFeedbackForm = () => {
     const feedback = { title, category, detail };
 
     try {
-      const res = await fetch('https://productapp-9q9e.onrender.com/feedback', {
+      const res = await fetch('https://cadenproductapp.onrender.com/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(feedback),

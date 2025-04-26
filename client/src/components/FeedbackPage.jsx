@@ -11,7 +11,7 @@ const FeedbackPage = () => {
 
   const fetchFeedback = async () => {
     try {
-      const res = await fetch('https://productapp-9q9e.onrender.com/feedback');
+      const res = await fetch('https://cadenproductapp.onrender.com/feedback');
       const data = await res.json();
       if (data.success) {
         setFeedbackList(data.data);
