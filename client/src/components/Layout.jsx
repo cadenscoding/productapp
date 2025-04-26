@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
-import HamburgerMenu from '/HamburgerMenu.jsx';
+import HamburgerMenu from './HamburgerMenu';
 import FilterTags from './FilterTags';
 import '../styles/Layout.css';
 
